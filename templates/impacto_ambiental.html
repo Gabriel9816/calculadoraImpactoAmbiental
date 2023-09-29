@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculadora de Impacto Ambiental</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Calculadora de Impacto Ambiental</h1>
+        <form action="/calcular" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="regiao">Selecione a Região:</label>
+                <select name="regiao" id="regiao" class="form-control">
+                    {% for key, value in regioes.items() %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fonte_energia">Selecione a Fonte de Energia:</label>
+                <select name="fonte_energia" id="fonte_energia" class="form-control">
+                    {% for key, value in fontes_energia.items() %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular Impacto</button>
+        </form>
+        <div id="resultado" class="mt-4">
+            {% if resultado %}
+            <h2>Resultados do Cálculo</h2>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Emissão de CO2</td>
+                    <td>{{ resultado.emissao_co2 }} kg</td>
+                </tr>
+                <tr>
+                    <td>Desmatamento</td>
+                    <td>{{ resultado.desmatamento }} hectares</td>
+                </tr>
+                <tr>
+                    <td>Custo de Produção</td>
+                    <td>R$ {{ resultado.custo_producao }}</td>
+                </tr>
+                <tr>
+                    <td>Produção de Energia</td>
+                    <td>{{ resultado.producao_energia }} MWh</td>
+                </tr>
+                <tr>
+                    <td>Impacto Ambiental</td>
+                    <td>{{ resultado.impacto_ambiental }}</td>
+                </tr>
+            </table>
+        {% endif %}
+        </div>
+        </div>
+        <!-- Footer -->
+        <footer>
+            <p class="center">Desenvolvido por: <br> Gabriel, Sérgio, Alysson e Antonia</p>
+        </footer>
+        </body>
+        
+        </html>
